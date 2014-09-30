@@ -10,7 +10,7 @@
 
     <style>
         .md-width-input {
-            width: 280px;
+            width: 320px;
             font-size: 120%;
         }
 
@@ -26,6 +26,16 @@
     <div>
         <asp:TextBox ID="textboxCustomerName" runat="server" CssClass="md-width-input" ClientIDMode="Static"></asp:TextBox><br />
         <asp:TextBox ID="textboxCustomerNumber" runat="server" CssClass="md-width-input" ClientIDMode="Static"></asp:TextBox><br />
+        <br />
+
+        <br />
+        <asp:TextBox ID="textboxState" runat="server" CssClass="md-width-input" ClientIDMode="Static"></asp:TextBox><br />
+        <asp:TextBox ID="textboxCounty" runat="server" CssClass="md-width-input" ClientIDMode="Static"></asp:TextBox><br />
+        <asp:TextBox ID="textboxStateAbbrev" runat="server" CssClass="md-width-input" ClientIDMode="Static"></asp:TextBox><br />
+        <asp:TextBox ID="textboxCountId" runat="server" CssClass="md-width-input" ClientIDMode="Static"></asp:TextBox><br />
+
+
+
     </div>
     <script src="/public/vendor/jquery/dist/jquery.min.js"></script>
     <script src="/public/vendor/jquery-ui/jquery-ui.min.js"></script>

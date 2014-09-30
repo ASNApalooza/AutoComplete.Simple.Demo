@@ -1,0 +1,31 @@
+
+
+
+Add this image:
+    public/images/concentric-spinner.gif
+
+Add these JavaScript files
+    public/vendor/jquery/dist/jquery.min.js
+    public/vendor/jquery-ui/jquery-ui-min.js
+    public/js/ASNAHelper.AutoComplete.js
+
+
+
+Add this CSS:
+    public/vendor/jquery-ui/themes/smoothness/jquery-ui.min.css
+
+
+Add this CSS:
+        .ui-autocomplete-loading {
+            background-image: url('public/images/concentric-spinner.gif');
+            background-position: 98% 50%;
+            background-repeat: no-repeat;
+        }
+
+Add this ASHX file:
+services/JsonAutoComplete.ashx
+
+Add references to: 
+    ASNA.Helpers.DataServices.dll
+    ASNA.Helpres.ASPNET.dll
+

@@ -8,12 +8,36 @@ ASNAHelper.AutoComplete = function () {
     var labelTargetId = null;
     var showLabelOnScroll = null;
 
+    function getQueryFieldValue(valueSpecified){
+        if (typeof valueSpecified == 'undefined') return 'undefined';
+        if (valueSpecified.substring(0,1) === "#") {
+            var selector = $(valueSpecified);
+            if (selector.length > 0) {
+                var value = selector.val();
+                if (value) return value;
+                if (!value) {
+                    value = selector.text();
+                    if (value) return value;
+                }
+            }
+            return valueSpecified;
+        }
+        else {
+            return valueSpecified;
+        }
+    }
+
     function source(req,add,ajaxArgs,configArgs) {
         var url = configArgs.url;
         this.ownerId = configArgs.ownerId;
         if (configArgs.hasOwnProperty("valueTargetId")) this.valueTargetId = configArgs.valueTargetId;
         if (configArgs.hasOwnProperty("labelTargetId")) this.labelTargetId = configArgs.labelTargetId;
         if (configArgs.hasOwnProperty("showLabelOnScroll")) this.showLabelOnScroll = configArgs.showLabelOnScroll;
+
+        if (ajaxArgs.hasOwnProperty("qryval1")) ajaxArgs.qryval1 = getQueryFieldValue(ajaxArgs.qryval1);
+        if (ajaxArgs.hasOwnProperty("qryval2")) ajaxArgs.qryval2 = getQueryFieldValue(ajaxArgs.qryval2);
+        if (ajaxArgs.hasOwnProperty("qryval3")) ajaxArgs.qryval3 = getQueryFieldValue(ajaxArgs.qryval3);
+
 
         $(".my-ui-icon-alert").removeClass("my-ui-icon-alert");
 
@@ -72,8 +96,8 @@ ASNAHelper.AutoComplete = function () {
     };
 }();
 
-ASNAHelper.ConfigureAutoComplete = function() {
-    function forSingleField(args) {
+ASNAHelper.RegisterAutoComplete = function() {
+    function forField(args) {
         $("#" + args.labelTargetId).autocomplete({
              source: function (req, add) {
                 var ajaxArgs = {
@@ -83,6 +107,10 @@ ASNAHelper.ConfigureAutoComplete = function() {
                     rows: args.rows,
                     qryfld1: args.qryfld1,
                     qryval1: req.term,
+                    qryval2: args.qryval2,
+                    qryfld2: args.qryfld2,
+                    qryval3: args.qryval3,
+                    qryfld3: args.qryfld3,
                     query: args.query
                 };
                 var configArgs = {
@@ -104,6 +132,6 @@ ASNAHelper.ConfigureAutoComplete = function() {
     };
 
     return {
-        forSingleField: forSingleField
+        forField: forField
     }
 }();
