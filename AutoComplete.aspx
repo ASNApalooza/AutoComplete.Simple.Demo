@@ -19,6 +19,11 @@
             background-position: 98% 50%;
             background-repeat: no-repeat;
         }
+
+        .my-ui-icon-alert {
+            background: white url('public/images/icon-alert.png') right center no-repeat;
+        }
+
     </style>
 </head>
 <body>
