@@ -22,7 +22,10 @@
         qryfld1: "state",
         query: "STATE >= '{STATE}'",
         url: "/services/JsonAutoComplete.ashx",
-        showLabelOnScroll: true
+        showLabelOnScroll: true,
+        onSelect: function() {
+            $("#textboxCustomerName").focus();
+        }
     });
 
     ASNAHelper.RegisterAutoComplete.forField({
@@ -38,6 +41,7 @@
         query: "STATE = '{STATE}' AND COUNTY >= '{COUNTY}'",
         url: "/services/JsonAutoComplete.ashx",
         showLabelOnScroll: true
+
     });
 });
 

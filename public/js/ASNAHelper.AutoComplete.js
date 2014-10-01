@@ -4,11 +4,18 @@ ASNAHelper.AutoComplete = function () {
 
     var url = null;
     var ownerId = null;
-    var valueTargetId = null;
+    var valueTargetId = "roger";
     var labelTargetId = null;
     var showLabelOnScroll = null;
+    var onSelectCallback = {};
 
     function getQueryFieldValue(valueSpecified){
+        // If the value of a query field starts with a # is assumed 
+        // to be a selector and the value of that select should be used. 
+        // This code looks first to the val() property of form elements
+        // first, and then to the text() property. If an element isn't 
+        // found with either search, the original value specified
+        // is returned. 
         if (typeof valueSpecified == 'undefined') return 'undefined';
         if (valueSpecified.substring(0,1) === "#") {
             var selector = $(valueSpecified);
@@ -38,6 +45,12 @@ ASNAHelper.AutoComplete = function () {
         if (ajaxArgs.hasOwnProperty("qryval2")) ajaxArgs.qryval2 = getQueryFieldValue(ajaxArgs.qryval2);
         if (ajaxArgs.hasOwnProperty("qryval3")) ajaxArgs.qryval3 = getQueryFieldValue(ajaxArgs.qryval3);
 
+        if (typeof configArgs.onSelect !== "undefined") {            
+            if (typeof this.onSelectCallback == "undefined") {
+                this.onSelectCallback = {};
+            }
+            this.onSelectCallback[configArgs.labelTargetId] = configArgs.onSelect;
+        }
 
         $(".my-ui-icon-alert").removeClass("my-ui-icon-alert");
 
@@ -53,6 +66,7 @@ ASNAHelper.AutoComplete = function () {
                 }
             }
             else if (data.error) {
+                console.log(data.error);
                 var x = data;
             }
         })
@@ -75,6 +89,10 @@ ASNAHelper.AutoComplete = function () {
         if (this.labelTargetId) {
             $("#" + this.labelTargetId).val(ui.item.label);
             result = this.labelTargetId !== this.ownerId;
+        }
+
+        if ( this.onSelectCallback[this.labelTargetId] != "undefined") {
+            this.onSelectCallback[this.labelTargetId]();
         }
     
         return result;
@@ -118,7 +136,8 @@ ASNAHelper.RegisterAutoComplete = function() {
                     ownerId: this.element.context.id,
                     valueTargetId: args.valueTargetId,
                     labelTargetId: args.labelTargetId,
-                    showLabelOnScroll: args.showLabelOnScroll
+                    showLabelOnScroll: args.showLabelOnScroll,
+                    onSelect: args.onSelect
                 };
                 ASNAHelper.AutoComplete.source(req,add,ajaxArgs,configArgs);
             },
