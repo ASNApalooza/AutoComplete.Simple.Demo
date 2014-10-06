@@ -24,7 +24,7 @@
         url: "/services/JsonAutoComplete.ashx",
         showLabelOnScroll: true,
         onSelect: function() {
-            $("#textboxCustomerName").focus();
+            console.log("hola");
         }
     });
 
@@ -41,7 +41,6 @@
         query: "STATE = '{STATE}' AND COUNTY >= '{COUNTY}'",
         url: "/services/JsonAutoComplete.ashx",
         showLabelOnScroll: true
-
     });
 });
 
